@@ -1,4 +1,8 @@
-﻿namespace ExpressionEvaluator.Core;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+
+namespace ExpressionEvaluator.Core;
 
 public class Evaluator
 {
@@ -12,48 +16,77 @@ public class Evaluator
     {
         var postFix = string.Empty;
         var stack = new Stack<char>();
-        foreach (var item in infix)
+        bool expectOperand = true;
+
+        for (int i = 0; i < infix.Length; i++)
         {
+            var item = infix[i];
+
+            if (char.IsWhiteSpace(item))
+                continue;
+
+            if (char.IsDigit(item) || item == '.')
+            {
+                int j = i;
+                while (j < infix.Length && (char.IsDigit(infix[j]) || infix[j] == '.'))
+                {
+                    j++;
+                }
+                postFix += infix.Substring(i, j - i);
+                postFix += ' ';
+                i = j - 1;
+                expectOperand = false;
+                continue;
+            }
+
             if (IsOperator(item))
             {
-                if (stack.Count == 0)
+                if ((item == '+' || item == '-') && expectOperand)
+                {
+                    postFix += "0 ";
+                }
+
+                if (item == '(')
                 {
                     stack.Push(item);
+                    expectOperand = true;
+                    continue;
                 }
-                else
+
+                if (item == ')')
                 {
-                    if (item == ')')
+                    while (stack.Count > 0 && stack.Peek() != '(')
                     {
-                        do
-                        {
-                            postFix += stack.Pop();
-                        } while (stack.Peek() != '(');
-                        stack.Pop();
+                        postFix += stack.Pop();
+                        postFix += ' ';
                     }
-                    else
-                    {
-                        if (PriorityInfix(item) > PriorityStack(stack.Peek()))
-                        {
-                            stack.Push(item);
-                        }
-                        else
-                        {
-                            postFix += stack.Pop();
-                            stack.Push(item);
-                        }
-                    }
+                    if (stack.Count == 0) throw new Exception("Syntax error: unmatched ')'.");
+                    stack.Pop();
+                    expectOperand = false;
+                    continue;
                 }
+
+                while (stack.Count > 0 && PriorityStack(stack.Peek()) >= PriorityInfix(item))
+                {
+                    postFix += stack.Pop();
+                    postFix += ' ';
+                }
+                stack.Push(item);
+                expectOperand = true;
+                continue;
             }
-            else
-            {
-                postFix += item;
-            }
+
+            postFix += item;
+            postFix += ' ';
+            expectOperand = false;
         }
+
         while (stack.Count > 0)
         {
             postFix += stack.Pop();
+            postFix += ' ';
         }
-        return postFix;
+        return postFix.Trim();
     }
 
     private static int PriorityStack(char item) => item switch
@@ -81,29 +114,38 @@ public class Evaluator
     private static double EvaluatePostfix(string postfix)
     {
         var stack = new Stack<double>();
-        foreach (char item in postfix)
+        var tokens = postfix.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        foreach (var token in tokens)
         {
-            if (IsOperator(item))
+            if (token.Length == 1 && IsOperator(token[0]))
             {
+                if (stack.Count < 2) throw new Exception("Syntax error: insufficient operands for operator.");
+                
                 var b = stack.Pop();
                 var a = stack.Pop();
-                stack.Push(item switch
-                {
-                    '+' => a + b,
-                    '-' => a - b,
-                    '*' => a * b,
-                    '/' => a / b,
-                    '^' => Math.Pow(a, b),
-                    _ => throw new Exception("Sintax error."),
-                });
+                var result = Calculate(a, token[0], b);
+                stack.Push(result);
             }
             else
             {
-                stack.Push(double.Parse(item.ToString()));
+                stack.Push(double.Parse(token, CultureInfo.InvariantCulture));
             }
         }
         return stack.Pop();
     }
 
     private static bool IsOperator(char item) => "+-*/^()".Contains(item);
+
+    private static double Calculate(double number1, char @operator, double number2)
+    {
+        switch (@operator)
+        {
+            case '^': return Math.Pow(number1, number2);
+            case '*': return number1 * number2;
+            case '/': return number1 / number2;
+            case '+': return number1 + number2;
+            case '-': return number1 - number2;
+            default: throw new Exception("Not valid operator");
+        }
+    }
 }

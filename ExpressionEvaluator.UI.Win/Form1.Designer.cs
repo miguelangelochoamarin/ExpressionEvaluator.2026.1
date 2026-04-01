@@ -46,7 +46,7 @@
             buttonClear = new Button();
             buttonPow = new Button();
             buttonDot = new Button();
-            textBox1 = new TextBox();
+            txtDisplay = new TextBox();
             buttonCloseParentesis = new Button();
             buttonDivide = new Button();
             buttonMinus = new Button();
@@ -237,15 +237,16 @@
             buttonDot.TabIndex = 17;
             buttonDot.Text = ".";
             buttonDot.UseVisualStyleBackColor = true;
+            buttonDot.Click += buttonDot_Click;
             // 
-            // textBox1
+            // txtDisplay
             // 
-            textBox1.BackColor = Color.Green;
-            textBox1.Location = new Point(7, 10);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(314, 27);
-            textBox1.TabIndex = 18;
+            txtDisplay.BackColor = Color.Green;
+            txtDisplay.Location = new Point(7, 10);
+            txtDisplay.Multiline = true;
+            txtDisplay.Name = "txtDisplay";
+            txtDisplay.Size = new Size(314, 27);
+            txtDisplay.TabIndex = 18;
             // 
             // buttonCloseParentesis
             // 
@@ -289,7 +290,7 @@
             Controls.Add(buttonCloseParentesis);
             Controls.Add(buttonDivide);
             Controls.Add(buttonMinus);
-            Controls.Add(textBox1);
+            Controls.Add(txtDisplay);
             Controls.Add(buttonDot);
             Controls.Add(buttonDelete);
             Controls.Add(buttonClear);
@@ -334,7 +335,7 @@
         private Button buttonClear;
         private Button buttonPow;
         private Button buttonDot;
-        private TextBox textBox1;
+        private TextBox txtDisplay;
         private Button buttonCloseParentesis;
         private Button buttonDivide;
         private Button buttonMinus;

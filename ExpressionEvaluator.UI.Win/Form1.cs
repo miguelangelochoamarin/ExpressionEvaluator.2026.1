@@ -1,3 +1,5 @@
+using ExpressionEvaluator.Core;
+
 namespace ExpressionEvaluator.UI.Win
 {
     public partial class Form1 : Form
@@ -29,7 +31,7 @@ namespace ExpressionEvaluator.UI.Win
 
         private void button4_Click(object sender, EventArgs e)
         {
-            txtDisplay,Text += "4";
+            txtDisplay.Text += "4";
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -59,7 +61,7 @@ namespace ExpressionEvaluator.UI.Win
 
         private void buttonOpenparentesis_Click(object sender, EventArgs e)
         {
-            txtDisplay.text += "(";
+            txtDisplay.Text += "(";
         }
         private void buttonCloseParentesis_Click(object sender, EventArgs e)
         {
@@ -86,7 +88,7 @@ namespace ExpressionEvaluator.UI.Win
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text = txtDisplay.Text.Substring(0.txtDisplay.Lenght - 1);
+            txtDisplay.Text = txtDisplay.Text.Substring(0, txtDisplay.TextLength - 1);
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
@@ -103,6 +105,11 @@ namespace ExpressionEvaluator.UI.Win
         {
             var res = Evaluator.Evaluate(txtDisplay.Text);
             txtDisplay.Text += $"= {res}";
+        }
+
+        private void buttonDot_Click(object sender, EventArgs e)
+        {
+            txtDisplay.Text += ".";
         }
     }
 }
