@@ -177,6 +177,7 @@
             // buttonMultiply
             // 
             buttonMultiply.BackColor = Color.FromArgb(255, 128, 0);
+            buttonMultiply.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             buttonMultiply.Location = new Point(157, 100);
             buttonMultiply.Name = "buttonMultiply";
             buttonMultiply.Size = new Size(44, 41);
@@ -188,6 +189,7 @@
             // buttonPlus
             // 
             buttonPlus.BackColor = Color.FromArgb(255, 128, 0);
+            buttonPlus.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             buttonPlus.Location = new Point(157, 149);
             buttonPlus.Name = "buttonPlus";
             buttonPlus.Size = new Size(44, 41);
@@ -242,6 +244,7 @@
             // txtDisplay
             // 
             txtDisplay.BackColor = Color.Green;
+            txtDisplay.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtDisplay.ForeColor = Color.White;
             txtDisplay.Location = new Point(7, 10);
             txtDisplay.Multiline = true;
@@ -263,6 +266,7 @@
             // buttonDivide
             // 
             buttonDivide.BackColor = Color.FromArgb(255, 128, 0);
+            buttonDivide.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             buttonDivide.Location = new Point(207, 100);
             buttonDivide.Name = "buttonDivide";
             buttonDivide.Size = new Size(44, 41);
@@ -274,6 +278,7 @@
             // buttonMinus
             // 
             buttonMinus.BackColor = Color.FromArgb(255, 128, 0);
+            buttonMinus.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             buttonMinus.Location = new Point(207, 149);
             buttonMinus.Name = "buttonMinus";
             buttonMinus.Size = new Size(44, 41);
@@ -287,7 +292,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaptionText;
-            ClientSize = new Size(337, 244);
+            ClientSize = new Size(330, 249);
             Controls.Add(buttonCloseParentesis);
             Controls.Add(buttonDivide);
             Controls.Add(buttonMinus);
