@@ -242,6 +242,7 @@
             // txtDisplay
             // 
             txtDisplay.BackColor = Color.Green;
+            txtDisplay.ForeColor = Color.White;
             txtDisplay.Location = new Point(7, 10);
             txtDisplay.Multiline = true;
             txtDisplay.Name = "txtDisplay";
