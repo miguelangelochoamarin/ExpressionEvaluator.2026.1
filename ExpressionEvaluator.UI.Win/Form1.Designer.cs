@@ -244,12 +244,11 @@
             // txtDisplay
             // 
             txtDisplay.BackColor = Color.Green;
-            txtDisplay.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtDisplay.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtDisplay.ForeColor = Color.White;
             txtDisplay.Location = new Point(7, 10);
-            txtDisplay.Multiline = true;
             txtDisplay.Name = "txtDisplay";
-            txtDisplay.Size = new Size(314, 27);
+            txtDisplay.Size = new Size(314, 25);
             txtDisplay.TabIndex = 18;
             // 
             // buttonCloseParentesis

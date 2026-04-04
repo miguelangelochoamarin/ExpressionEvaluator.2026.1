@@ -5,6 +5,7 @@ using System.Globalization;
 namespace ExpressionEvaluator.Core;
 
 public class Evaluator
+
 {
     public static double Evaluate(string infix)
     {
@@ -12,8 +13,10 @@ public class Evaluator
         return EvaluatePostfix(postfix);
     }
 
+    //2.
     private static string InfixToPostfix(string infix)
     {
+
         var postFix = string.Empty;
         var stack = new Stack<char>();
         bool expectOperand = true;
@@ -89,6 +92,7 @@ public class Evaluator
         return postFix.Trim();
     }
 
+    //3.
     private static int PriorityStack(char item) => item switch
     {
         '^' => 3,
@@ -100,6 +104,7 @@ public class Evaluator
         _ => throw new Exception("Sintax error."),
     };
 
+    //4.
     private static int PriorityInfix(char item) => item switch
     {
         '^' => 4,
@@ -111,6 +116,7 @@ public class Evaluator
         _ => throw new Exception("Sintax error."),
     };
 
+    //5.
     private static double EvaluatePostfix(string postfix)
     {
         var stack = new Stack<double>();
@@ -134,8 +140,11 @@ public class Evaluator
         return stack.Pop();
     }
 
+    //6.
     private static bool IsOperator(char item) => "+-*/^()".Contains(item);
 
+
+    //7.
     private static double Calculate(double number1, char @operator, double number2)
     {
         switch (@operator)
